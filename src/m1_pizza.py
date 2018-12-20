@@ -387,6 +387,14 @@ def run_test_polygon():
     # -------------------------------------------------------------------------
     # Test 3:  (YOU write THIS test)
     # -------------------------------------------------------------------------
+    # Test 3:
+
+    window = rg.RoseWindow(550, 400)
+
+    circle = rg.Circle(rg.Point(300, 200), 150)
+    circle.outline_thickness = 3
+    polygon(window, circle, 9, 'green', 2)
+    window.continue_on_mouse_click()
 
 
 def polygon(window, circle, number_of_segments, color, thickness):
@@ -428,6 +436,19 @@ def polygon(window, circle, number_of_segments, color, thickness):
     #    (defined above) to generate the relevant points,
     #    and then draw lines that are based in part on those points.
     # -------------------------------------------------------------------------
+    circle.attach_to(window)
+    points = generate_points_on_circle(circle, number_of_segments)
+    for k in range(number_of_segments - 1):
+        line = rg.Line(points[k], points[k + 1])
+        line.color = color
+        line.thickness = thickness
+        line.attach_to(window)
+    line = rg.Line(points[number_of_segments - 1], points[0])
+    line.thickness = thickness
+    line.color = color
+    line.attach_to(window)
+
+    window.render()
 
 
 def run_test_fancy_polygon():
